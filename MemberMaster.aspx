@@ -146,12 +146,8 @@
                          <br />
                         
                         <asp:Button ID="Button3" runat="server" onclick="Button3_Click1" 
-<<<<<<< HEAD
                              Text="select all type" style="margin-left: 94px" 
                              UseSubmitBehavior="False" />
-=======
-                             Text="select all type" style="margin-left: 94px" />
->>>>>>> e13cd9554ef3fe43e9fb583f78eaa9972fe84401
                          
                         
                        
@@ -243,12 +239,8 @@
                              <br />
                              <br />
                              <asp:Button ID="Button4" runat="server" onclick="Button4_Click" 
-<<<<<<< HEAD
                                  Text="select all category" Width="128px" style="margin-left: 107px" 
                                  UseSubmitBehavior="False" />
-=======
-                                 Text="select all category" Width="128px" style="margin-left: 107px" />
->>>>>>> e13cd9554ef3fe43e9fb583f78eaa9972fe84401
                         </td>
                         <td class="table_wid" >
                        
@@ -368,11 +360,7 @@
                 <asp:Button ID="Button1" runat="server" Font-Bold="True" Width="100px" Text="Save" ValidationGroup="f" 
                     OnClick="Button1_Click" />
                 <asp:Button ID="t_back" runat="server" Font-Bold="True" OnClick="Button3_Click" 
-<<<<<<< HEAD
                     Text="Back" Width="100px" UseSubmitBehavior="False" />
-=======
-                    Text="Back" Width="100px" />
->>>>>>> e13cd9554ef3fe43e9fb583f78eaa9972fe84401
                 <asp:TextBox ID="h_id" runat="server" Visible="False"></asp:TextBox>
             </p>
         

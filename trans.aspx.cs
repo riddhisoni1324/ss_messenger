@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections;
+using System.IO;
 
 public partial class trans : System.Web.UI.Page
 {
@@ -15,6 +17,7 @@ public partial class trans : System.Web.UI.Page
     PagedDataSource adsource;
     string connstring = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
     int pos;
+    ArrayList ae_mem = new ArrayList();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,6 +26,7 @@ public partial class trans : System.Web.UI.Page
         {
             MultiView1.SetActiveView(View1);
             this.ViewState["vs"] = 0;
+            l_mem.Text = "";
         }
         pos = (int)this.ViewState["vs"];
         databind();
@@ -77,7 +81,7 @@ public partial class trans : System.Web.UI.Page
         databind();
     }
 
-    
+
 
 
 
@@ -96,7 +100,7 @@ public partial class trans : System.Web.UI.Page
             insert_cat = new SqlCommand("INSERT INTO doctrans (docid,title,docdetail) VALUES(@docid,@title,@docdetail)", con1);
             insert_cat.Parameters.Add("@title", t_doc_title.Text);
             insert_cat.Parameters.Add("@docdetail", t_doc_detail.Text);
-            insert_cat.Parameters.Add("@docid",s);
+            insert_cat.Parameters.Add("@docid", s);
 
             if ((con1.State & ConnectionState.Open) > 0)
             {
@@ -126,7 +130,7 @@ public partial class trans : System.Web.UI.Page
 
         databind();
 
-       
+
     }
 
 
@@ -146,13 +150,88 @@ public partial class trans : System.Web.UI.Page
     protected void Button3_Click1(object sender, EventArgs e)
     {
 
+        string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection con1 = new SqlConnection(cs1);
+        con1.Open();
+
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.CommandText = "select * from MemberMaster";
+
+
+        cmd.Connection = con1;
+        SqlDataReader rdr;
+        rdr = cmd.ExecuteReader();
+        ListBox1.DataSource = rdr;
+        ListBox1.DataTextField = "membername";
+        ListBox1.DataValueField = "code";
+        ListBox1.DataBind();
+        MultiView1.SetActiveView(View3);
     }
     protected void b_sel_mem_Click(object sender, EventArgs e)
     {
+        l_mem.Text = "";
+        foreach (ListItem li1 in ListBox1.Items)
+        {
+            //Response.Write("sadsad"+li1.Text);
+            li1.Selected = true;
+            ae_mem.Add(li1.Value);
+          //  Response.Write(li1.Value + "<br>");
+            l_mem.Text += li1.Text + ":";
 
+        }
     }
     protected void Button4_Click(object sender, EventArgs e)
     {
+        l_mem.Text = "";
+        foreach (ListItem li1 in ListBox1.Items)
+        {
+            //Response.Write("sadsad"+li1.Text);
+            if (li1.Selected)
+            {
+                ae_mem.Add(li1.Value);
+               // Response.Write(li1.Value + "<br>");
+                l_mem.Text += li1.Text + ":";
+            }
 
+        }
+        MultiView1.SetActiveView(View2);
+    }
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        if (FileUpload1.HasFile)     // CHECK IF ANY FILE HAS BEEN SELECTED.
+        {
+           
+
+            HttpFileCollection hfc = Request.Files;
+            Response.Write(hfc);
+            Response.Write(hfc.Count);
+
+            if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
+            {
+                for (int i = 0; i < hfc.Count; i++)
+                {
+                    
+                    HttpPostedFile hpf = hfc[i];
+                    //Response.Write("file count " + i + hpf);
+                    if (hpf.ContentLength > 0 && hpf.ContentLength < 2048000)
+                    {
+                        // SAVE THE FILE IN A FOLDER.
+                        //Response.Write(Path.GetFileName(hpf.FileName));
+                        hpf.SaveAs(Server.MapPath("~/Attachment/") + Path.GetFileName(hpf.FileName));
+
+                    }
+                }
+
+            }
+            else
+            {
+                Response.Write("10 file is allowed");
+            }
+        }
+        else
+        {
+            Response.Write("file is not selected");
+        }
     }
 }

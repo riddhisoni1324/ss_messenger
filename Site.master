@@ -26,7 +26,7 @@
                         <asp:MenuItem NavigateUrl="~/CategoryMaster.aspx" Text="Categorymaster"/>
                         <asp:MenuItem NavigateUrl="~/MemberMaster.aspx" Text="MemberMaster"/>
                         <asp:MenuItem NavigateUrl="~/DocMaster.aspx" Text="DocMaster"/>
-                        <asp:MenuItem NavigateUrl="~/DocTrans.aspx" Text="DocTrans"/>
+                        <asp:MenuItem NavigateUrl="~/trans.aspx" Text="DocTrans"/>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>

@@ -114,6 +114,13 @@
                     <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true"/>
                     <%--<asp:Button ID="upload" runat="server" Text="check" onclick="upload_Click" />--%>
                 </td>
+                <td>
+                
+                
+                    <asp:Button ID="Button5" runat="server" onclick="Button5_Click" Text="Button" />
+                
+                
+                </td>
                 
                 </tr>
                 <tr>
