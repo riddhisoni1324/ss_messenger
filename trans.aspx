@@ -117,10 +117,7 @@
                 <td>
                 
                 
-                    <asp:Button ID="Button5" runat="server" onclick="Button5_Click" Text="Button" />
-                
-                
-                </td>
+                    &nbsp;</td>
                 
                 </tr>
                 <tr>
@@ -171,6 +168,7 @@
             <br />
             <asp:Button ID="Button4" runat="server" onclick="Button4_Click" 
                 Text="save and go back" />
+            <asp:HiddenField ID="h_dtid" runat="server" />
             <br />
         
         
