@@ -8,6 +8,10 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
+
+
 
 public partial class trans : System.Web.UI.Page
 {
@@ -16,7 +20,7 @@ public partial class trans : System.Web.UI.Page
     DataSet dset; string t_id; int c_id = 0;
     PagedDataSource adsource; int dtid = 0;
     string connstring = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-    int pos;
+    int pos; SqlCommand cmd; string email;
     ArrayList ae_mem = new ArrayList(); string file_name; ArrayList ae_atch = new ArrayList();
 
     protected void Page_Load(object sender, EventArgs e)
@@ -212,10 +216,65 @@ public partial class trans : System.Web.UI.Page
         }
 
 
+
+        foreach (ListItem li1 in ListBox1.Items)
+        {
+            //Response.Write("sadsad"+li1.Text);
+            li1.Selected = true;
+            ae_mem.Add(li1.Value);
+             Response.Write(li1.Value + "<br>");
+            //l_mem.Text += li1.Text + ":";
+             l_mem.Text = li1.Value;
+
+        }
+
+        foreach (var i in ae_mem)
+        {
+
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+            con.Open();
+            cmd = new SqlCommand("select * from membermaster where code=@code", con);
+            cmd.Parameters.Add("@code", i);
+            cmd.Connection = con;
+            SqlDataReader rdr;
+            rdr = cmd.ExecuteReader();
+
+            if (rdr != null)
+            {
+                while (rdr.Read())
+                {
+
+                    email = rdr["emailid"].ToString();
+                    Response.Write(email + "<br>");
+
+                    string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    SqlConnection con1 = new SqlConnection(cs1);
+                    con1.Open();
+                    insert_cat = new SqlCommand("INSERT INTO dochistory (dtid,memberid)VALUES(@dtid,@memberid)", con1);
+                    insert_cat.Parameters.Add("@dtid", 1);
+                    insert_cat.Parameters.Add("@memberid", i);
+                    int i13 = 0;
+                    if ((con1.State & ConnectionState.Open) > 0)
+                    {
+                         i13 = insert_cat.ExecuteNonQuery();
+
+
+                    }
+                }
+
+            }
+
+        }
+
+
+
         MultiView1.SetActiveView(View1);
         databind();
 
     }
+
+        
 
 
 
@@ -259,26 +318,67 @@ public partial class trans : System.Web.UI.Page
             //Response.Write("sadsad"+li1.Text);
             li1.Selected = true;
             ae_mem.Add(li1.Value);
-            //  Response.Write(li1.Value + "<br>");
-            l_mem.Text += li1.Text + ":";
+             Response.Write(li1.Value + "<br>");
+            //l_mem.Text += li1.Text + ":";
+             l_mem.Text = li1.Value;
 
+        }
+
+        foreach (var i in ae_mem)
+        {
+
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+            con.Open();
+            cmd = new SqlCommand("select * from membermaster where code=@code", con);
+            cmd.Parameters.Add("@code", i);
+            cmd.Connection = con;
+            SqlDataReader rdr;
+            rdr = cmd.ExecuteReader();
+
+            if (rdr != null)
+            {
+                while (rdr.Read())
+                {
+
+                    email = rdr["emailid"].ToString();
+                    Response.Write(email + "<br>");
+
+                }
+            }
+
+
+            con.Close();
+            using (MailMessage mm = new MailMessage("adharvotingsystem@gmail.com", "riddhisoni1324@gmail.com"))
+            {
+                mm.Subject = "Attch Mail";
+                mm.Body = "hello ";
+                mm.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("adharvotingsystem@gmail.com", "citybuzz");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('mail sent.');", true);
+            }
+        }
+
+        foreach(var x in ae_mem){
+
+            Response.Write("hii"+x+"<br>");
         }
     }
     protected void Button4_Click(object sender, EventArgs e)
     {
-        l_mem.Text = "";
-        foreach (ListItem li1 in ListBox1.Items)
-        {
-            //Response.Write("sadsad"+li1.Text);
-            if (li1.Selected)
-            {
-                ae_mem.Add(li1.Value);
-                // Response.Write(li1.Value + "<br>");
-                l_mem.Text += li1.Text + ":";
-            }
-
-        }
+       
         MultiView1.SetActiveView(View2);
     }
-    
+
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        
+    }
 }

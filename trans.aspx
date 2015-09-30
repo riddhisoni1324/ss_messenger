@@ -129,7 +129,7 @@
                 <td>
                     
                     <asp:Label ID="Label2" runat="server" Text="Do u want to email?"></asp:Label>
-                    <asp:Button ID="Button3" runat="server" Text="Save & Mail" 
+                    <asp:Button ID="Button3" runat="server" Text="Select Member" 
                         onclick="Button3_Click1" />
                 </td>
                 <td>
@@ -168,6 +168,11 @@
             <br />
             <asp:Button ID="Button4" runat="server" onclick="Button4_Click" 
                 Text="save and go back" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="Button5" runat="server" onclick="Button5_Click" 
+                Text="save and mail" />
+            <br />
+            <br />
             <asp:HiddenField ID="h_dtid" runat="server" />
             <br />
         
