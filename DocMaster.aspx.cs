@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
+using System.IO;
 
 
 public partial class DocMaster : System.Web.UI.Page
@@ -171,9 +172,18 @@ public partial class DocMaster : System.Web.UI.Page
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('There is some problem try after sometime.');", true);
                 }
                 con1.Close();
+                    string pathToCreate = "~/Attachment/" + t_doc_desc.Text;
+                    if(!Directory.Exists(Server.MapPath(pathToCreate)))
+                    {
+                        //Now you know it is ok, create it
+                        Directory.CreateDirectory(Server.MapPath(pathToCreate));
+                    }
+
+                    
                 databind();
                 MultiView1.SetActiveView(View1);
             }
+                   
         }
         //--if it is in "update" mode
         else
@@ -203,6 +213,13 @@ public partial class DocMaster : System.Web.UI.Page
                 }
 
             }
+            string pathToCreate = "~/Attachment/" + t_doc_desc.Text;
+            if (!Directory.Exists(Server.MapPath(pathToCreate)))
+            {
+                //Now you know it is ok, create it
+                Directory.CreateDirectory(Server.MapPath(pathToCreate));
+            }
+
             databind();
             MultiView1.SetActiveView(View1);
         }
