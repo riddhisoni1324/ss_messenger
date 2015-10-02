@@ -112,7 +112,6 @@ public partial class trans : System.Web.UI.Page
                 int i = insert_cat.ExecuteNonQuery();
                 if (i != 0)
                 {
-                    //Response.Write(i);
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Category Added Succesfully.');", true);
                 }
                 else
@@ -120,11 +119,6 @@ public partial class trans : System.Web.UI.Page
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('There is some problem try after sometime.');", true);
                 }
             }
-            else
-            {
-                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('There is some problem try after sometime.');", true);
-            }
-
             t_doc_detail.Text = "";
             t_doc_title.Text = "";
             con1.Close();
@@ -136,10 +130,7 @@ public partial class trans : System.Web.UI.Page
 
 
                 HttpFileCollection hfc = Request.Files;
-                //Response.Write(hfc);
-                //Response.Write(hfc.Count);
-
-                if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
+               if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
                 {
                     for (int i = 0; i < hfc.Count; i++) ///--iterate start over each file upload
                     {
@@ -149,9 +140,7 @@ public partial class trans : System.Web.UI.Page
                         //--start checking file size
                         if (hpf.ContentLength > 0 && hpf.ContentLength < 2048000) 
                         {
-                            // SAVE THE FILE IN A FOLDER.
-                            file_name = Path.GetFileName(hpf.FileName);
-                            hpf.SaveAs(Server.MapPath("~/Attachment/") + Path.GetFileName(hpf.FileName));
+                           
                             //---fetch dtid 
                             SqlConnection con = new SqlConnection(connstring);
                             con.Open();
@@ -163,12 +152,16 @@ public partial class trans : System.Web.UI.Page
 
                             if (rdr != null){
                                 while (rdr.Read()){
-                                    Response.Write(rdr["dtid"].ToString() + "<br>");
+                                    //Response.Write(rdr["dtid"].ToString() + "<br>");
                                     h_dtid.Value = rdr["dtid"].ToString();
 
                                 }
                             }
                             con.Close();
+
+                            // SAVE THE FILE IN A FOLDER.
+                            file_name = Path.GetFileName(hpf.FileName);
+                            hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1+ "_" + h_dtid.Value+"_"+hpf.FileName));
 
                             //according dtid enter data in attach table
                             SqlConnection con12 = new SqlConnection(connstring);
@@ -222,7 +215,7 @@ public partial class trans : System.Web.UI.Page
             //Response.Write("sadsad"+li1.Text);
             li1.Selected = true;
             ae_mem.Add(li1.Value);
-             Response.Write(li1.Value + "<br>");
+            // Response.Write(li1.Value + "<br>");
             //l_mem.Text += li1.Text + ":";
              l_mem.Text = li1.Value;
 
