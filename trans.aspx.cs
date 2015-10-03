@@ -366,6 +366,15 @@ public partial class trans : System.Web.UI.Page
                     {
                         mm.Subject = "Attch Mail";
                         mm.Body = "hello ";
+                        List<string> file = new List<string>();
+                        //file.Add("~/About.aspx");
+                        //file.Add("~/Default.aspx");
+                        file.Add("~/Attachment/ notice/notice_23_a.sql");
+                        file.Add("~/Attachment/ notice/notice_23_b.sql");
+                        foreach(string f in file){
+                            mm.Attachments.Add(new Attachment(Server.MapPath(f)));
+
+                        }
                         mm.IsBodyHtml = false;
                         SmtpClient smtp = new SmtpClient();
                         smtp.Host = "smtp.gmail.com";
