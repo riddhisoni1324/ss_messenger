@@ -1,6 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="trans.aspx.cs" Inherits="trans" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <style type="text/css">
+        .style2
+        {
+            width: 293px;
+        }
+        .btn-large
+        {
+            margin-top: 0px;
+            margin-left: 30px;
+        }
+        .style4
+        {
+            width: 80px;
+        }
+        .style5
+        {
+            width: 93px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
@@ -70,10 +89,10 @@
         <asp:View ID="View2" runat="server">
             <table>
                 <tr>
-                    <td class="style3">
+                    <td class="style5">
                         DocType
                     </td>
-                    <td class="style1">
+                    <td class="style2">
                         <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource1"
                             DataTextField="DocDesc" DataValueField="DocID" CssClass="input_dim" Height="25px"
                             Width="205px">
@@ -83,10 +102,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="style3">
+                    <td class="style5">
                         Title
                     </td>
-                    <td class="style1">
+                    <td class="style2">
                         <asp:TextBox ID="t_doc_title" runat="server" CssClass="input_dim" Width="208px"></asp:TextBox>
                     </td>
                     <td class="style4">
@@ -95,24 +114,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="style3">
+                    <td class="style5">
                         DocDetails
                     </td>
-                    <td class="style1">
+                    <td class="style2">
                         <asp:TextBox ID="t_doc_detail" runat="server" CssClass="input_dim" Width="208px"></asp:TextBox>
                     </td>
                 </tr>
 
                 <tr>
-                <td class="style3"> Attach Doc
-                </td>
-                <td class="style1">
-                    <asp:TextBox ID="t_file_upload" runat="server" CssClass="input_dim" 
-                        Width="208px"></asp:TextBox>
-                </td>
+                <td class="style5"> &nbsp;</td>
+                <td class="style2">
+                    &nbsp;</td>
                 <td>
-                    <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true"/>
                     <%--<asp:Button ID="upload" runat="server" Text="check" onclick="upload_Click" />--%>
+                    <br />
                 </td>
                 <td>
                 
@@ -121,62 +137,80 @@
                 
                 </tr>
                 <tr>
+                <td class="style5"></td>
                 <td>
+                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary btn-large" 
+                        Font-Bold="True" Height="23px" OnClick="btnSave_Click" Text="Save" 
+                        ValidationGroup="insert" Width="100px" />
+                    </td>
+                </tr>
+                <tr>
+                <td class="style5">
                 
-                </td>
+                    &nbsp;</td>
                 
               
-                <td>
+                <td class="style2">
                     
-                    <asp:Label ID="Label2" runat="server" Text="Do u want to email?"></asp:Label>
-                    <asp:Button ID="Button3" runat="server" Text="Select Member" 
-                        onclick="Button3_Click1" />
-                </td>
+                    &nbsp;</td>
                 <td>
                 
                     <asp:Label ID="l_mem" runat="server" Text=" "></asp:Label>
                 
+                    <br />
+                    Attach Doc<br />
+                
+                    <br />
+                    <asp:FileUpload ID="FileUpload2" runat="server" AllowMultiple="true" />
+                    <br />
+                    <br />
+                    <br />
+                    <asp:Label ID="Label3" runat="server" Text="Do u want to email?"></asp:Label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <asp:ListBox ID="ListBox2" runat="server" Height="116px" 
+                        SelectionMode="Multiple" Width="264px"></asp:ListBox>
+                    <br />
+                    <br />
+                    <asp:Button ID="b_sel_mem0" runat="server" onclick="b_sel_mem_Click" 
+                        Text="select all member" />
+                    <br />
+                    <br />
+                    <asp:Button ID="Button6" runat="server" onclick="Button5_Click" 
+                        Text="save and mail" />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                
                 </td>
                 </tr>
                 <tr>
-                    <td class="style3">
-                    </td>
                     <td class="style5">
-                        <asp:Button ID="Button1" runat="server" Text="Save" Width="100px" CssClass="btn btn-primary btn-large"
-                            Font-Bold="True" OnClick="btnSave_Click" ValidationGroup="insert" />&nbsp;
+                    </td>
+                    <td class="style2">
+                        &nbsp;
                         <asp:Button ID="t_back" runat="server" OnClick="Button3_Click" Text="Back" Width="100px"
                             Font-Bold="True" Style="margin-left: 8px" />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <asp:HiddenField ID="h_dtid" runat="server" />
+                        <br />
                     </td>
                 </tr>
                 
             </table>
             <asp:TextBox ID="flag" runat="server" Visible="False"></asp:TextBox>
             <asp:TextBox ID="h_id" runat="server" Visible="False"></asp:TextBox>
-        </asp:View>
-        <asp:View ID="View3" runat="server">
-        
-        
-            <br />
-            <br />
-            <asp:ListBox ID="ListBox1" runat="server" Height="116px" Width="264px" 
-                SelectionMode="Multiple"></asp:ListBox>
-            <br />
-            <br />
-            <asp:Button ID="b_sel_mem" runat="server" onclick="b_sel_mem_Click" 
-                Text="select all member" />
-            <br />
-            <br />
-            <asp:Button ID="Button4" runat="server" onclick="Button4_Click" 
-                Text="save and go back" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Button5" runat="server" onclick="Button5_Click" 
-                Text="save and mail" />
-            <br />
-            <br />
-            <asp:HiddenField ID="h_dtid" runat="server" />
-            <br />
-        
-        
         </asp:View>
     </asp:MultiView>
 </asp:Content>
