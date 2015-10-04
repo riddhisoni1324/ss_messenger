@@ -142,95 +142,7 @@ public partial class trans : System.Web.UI.Page
             con1.Close();
 
 
-            ////---file upload start
-            //if (FileUpload2.HasFile)     // CHECK IF ANY FILE HAS BEEN SELECTED.
-            //{
-
-
-            //    HttpFileCollection hfc = Request.Files;
-            //   if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
-            //    {
-            //        for (int i = 0; i < hfc.Count; i++) ///--iterate start over each file upload
-            //        {
-
-            //            HttpPostedFile hpf = hfc[i];
-            //            //Response.Write("file count " + i + hpf);
-            //            //--start checking file size
-            //            if (hpf.ContentLength > 0 && hpf.ContentLength < 2048000) 
-            //            {
-                           
-            //                //---fetch dtid 
-            //                SqlConnection con = new SqlConnection(connstring);
-            //                con.Open();
-            //                SqlCommand cmd; SqlDataReader rdr;
-            //                //Response.Write("sel val is " + s + ":" + DropDownList2.SelectedItem.Text);
-            //                cmd = new SqlCommand("select top 1 * from doctrans order by dtid desc", con);
-            //                cmd.Parameters.Add("@docid", s);
-            //                rdr = cmd.ExecuteReader();
-
-            //                if (rdr != null){
-            //                    while (rdr.Read()){
-            //                        //Response.Write(rdr["dtid"].ToString() + "<br>");
-            //                        h_dtid.Value = rdr["dtid"].ToString();
-
-            //                    }
-            //                }
-            //                con.Close();
-
-            //                // SAVE THE FILE IN A FOLDER.
-            //                file_name = Path.GetFileName(hpf.FileName);
-            //                hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1+ "_" + h_dtid.Value+"_"+hpf.FileName));
-            //                file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + hpf.FileName));
-
-
-            //                //according dtid enter data in attach table
-            //                SqlConnection con12 = new SqlConnection(connstring);
-            //                con12.Open();
-            //                insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath) VALUES(@dtid,@docfilename,@docfilepath)", con12);
-            //                insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
-            //                insert_cat.Parameters.Add("@docfilename", file_name);
-            //                insert_cat.Parameters.Add("@docfilepath", "no");
-
-            //                if ((con12.State & ConnectionState.Open) > 0)
-            //                {
-            //                    int i2 = insert_cat.ExecuteNonQuery();
-            //                    if (i2 != 0){
-            //                        //Response.Write(i);
-            //                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Category Added Succesfully.');", true);
-            //                    }
-            //                    else{
-            //                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('There is some problem try after sometime.');", true);
-            //                    }
-            //                }
-            //                con12.Close();
-            //                foreach (string f in file1)
-            //                {
-            //                    Response.Write("file is " + f);
-
-            //                }
-
-
-            //            }//--end of  checking file size
-                           
-
-            //            else
-            //            {
-
-            //                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Please select file size valid.');", true);
-            //            }
-            //        }//--iterate end over each file upload
-
-            //    }//--end of file restriction
-            //    else
-            //    {
-            //        Response.Write("10 file is allowed");
-            //    }
-            //}//---file upload end
-            //else
-            //{
-            //    Response.Write("file is not selected");
-            //}
-
+            
 
         }
 
@@ -286,7 +198,7 @@ public partial class trans : System.Web.UI.Page
             ae_mem.Add(li1.Value);
              Response.Write(li1.Value + "<br>");
             //l_mem.Text += li1.Text + ":";
-             l_mem.Text = li1.Value;
+            // l_mem.Text = li1.Value;
 
         }
 
@@ -302,26 +214,79 @@ public partial class trans : System.Web.UI.Page
     {
         foreach (ListItem li1 in ListBox2.Items)
         {
-            //Response.Write("sadsad"+li1.Text);
             if (li1.Selected)
             {
                 ae_mem.Add(li1.Value);
                 Response.Write(li1.Value + "<br>");
-                //l_mem.Text += li1.Text + ":";
-                l_mem.Text = li1.Value;
             }
 
         }
-        
+        //---fetch dtid 
+        var s13 = DropDownList2.SelectedItem.Value;
+        SqlConnection con = new SqlConnection(connstring);
+        con.Open();
+        SqlCommand cmd; SqlDataReader rdr;
+        cmd = new SqlCommand("select top 1 * from doctrans order by dtid desc", con);
+        cmd.Parameters.Add("@docid", s13);
+        rdr = cmd.ExecuteReader();
+
+        if (rdr != null)
+        {
+            while (rdr.Read())
+            {
+                h_dtid.Value = rdr["dtid"].ToString();
+
+            }
+        }
+        con.Close();
+        rdr.Close();
 
         foreach (var i in ae_mem)
         {
             Response.Write("in foor loop");
+
+
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection con56 = new SqlConnection(cs);
+            con56.Open();
+            cmd = new SqlCommand("select * from membermaster where code=@code", con56);
+            cmd.Parameters.Add("@code", i);
+            cmd.Connection = con56;
+            SqlDataReader rdr1;
+            rdr1 = cmd.ExecuteReader();
+
+            if (rdr1 != null)
+            {
+                while (rdr1.Read())
+                {
+
+                 
+                    string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    SqlConnection con1 = new SqlConnection(cs1);
+                    con1.Open();
+                    insert_cat = new SqlCommand("INSERT INTO dochistory (dtid,memberid)VALUES(@dtid,@memberid)", con1);
+                    insert_cat.Parameters.Add("@dtid", h_dtid.Value);
+                    insert_cat.Parameters.Add("@memberid", i);
+                    int i13 = 0;
+                    if ((con1.State & ConnectionState.Open) > 0)
+                    {
+                        i13 = insert_cat.ExecuteNonQuery();
+
+
+                    }
+                }
+
+            }
+            con56.Close();
+
+
             string s1 = DropDownList2.SelectedItem.Text;
+            var s = DropDownList2.SelectedItem.Value;
+           
+            //---file upload start
             if (FileUpload2.HasFile)     // CHECK IF ANY FILE HAS BEEN SELECTED.
             {
-
-
+                
                 HttpFileCollection hfc = Request.Files;
                 if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
                 {
@@ -329,12 +294,10 @@ public partial class trans : System.Web.UI.Page
                     {
 
                         HttpPostedFile hpf = hfc[i1];
-                        //Response.Write("file count " + i + hpf);
-                        //--start checking file size
                         if (hpf.ContentLength > 0 && hpf.ContentLength < 2048000)
                         {
 
-                            
+                           
 
                             // SAVE THE FILE IN A FOLDER.
                             file_name = Path.GetFileName(hpf.FileName);
@@ -342,41 +305,63 @@ public partial class trans : System.Web.UI.Page
                             file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + hpf.FileName));
 
 
+                            //according dtid enter data in attach table
+                            SqlConnection con12 = new SqlConnection(connstring);
+                            con12.Open();
+                            insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath) VALUES(@dtid,@docfilename,@docfilepath)", con12);
+                            insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
+                            insert_cat.Parameters.Add("@docfilename", file_name);
+                            insert_cat.Parameters.Add("@docfilepath", "no");
 
-
+                            if ((con12.State & ConnectionState.Open) > 0)
+                            {
+                                int i2 = insert_cat.ExecuteNonQuery();
+                                if (i2 != 0)
+                                {
+                                    ClientScript.RegisterStartupScript(GetType(), "alert", "alert('doc attch Succesfully.');", true);
+                                }
+                                
+                            }
+                            con12.Close();
+                            
                         }//--end of  checking file size
 
 
-                    }
+                        else
+                        {
 
+                            ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Please select file size valid.');", true);
+                        }
+                    }//--iterate end over each file upload
+
+                }//--end of file restriction
+                else
+                {
+                    Response.Write("10 file is allowed");
                 }
-
-            }
-
-
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(cs);
-            con.Open();
-            cmd = new SqlCommand("select * from membermaster where code=@code", con);
-            cmd.Parameters.Add("@code", i);
-            cmd.Connection = con;
-            SqlDataReader rdr;
-            rdr = cmd.ExecuteReader();
-
-            if (rdr != null)
+            }//---file upload end
+            else
             {
-                while (rdr.Read())
+                Response.Write("file is not selected");
+            }
+            string cs14 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection con45 = new SqlConnection(cs14);
+            con45.Open();
+            SqlCommand cmd45;
+            cmd45 = new SqlCommand("select * from membermaster where code=@code", con45);
+            cmd45.Parameters.Add("@code", i);
+            cmd45.Connection = con45;
+            SqlDataReader rdr45;
+            rdr45 = cmd45.ExecuteReader();
+            //send mail start
+            if (rdr45 != null)
+            {
+                while (rdr45.Read())
                 {
 
-                    email = rdr["emailid"].ToString();
+                    email = rdr45["emailid"].ToString();
                     Response.Write(email + "<br>");
-                   // file1.Add("~/Attachment/notice/notice_23_a.sql");
-                    foreach (string f in file1)
-                    {
-                        Response.Write("file is " + f);
-
-                    }
-
+                   
                     using (MailMessage mm = new MailMessage("adharvotingsystem@gmail.com", email))
                     {
                         mm.Subject = "Attch Mail";
@@ -399,13 +384,10 @@ public partial class trans : System.Web.UI.Page
 
                 }
             }
+            //send mail end
+            con45.Close();
 
-
-            con.Close();
-
-        }
-
-
+        }//--iteration of perticular member done
 
     }
 }

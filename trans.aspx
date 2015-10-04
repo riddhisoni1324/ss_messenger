@@ -142,6 +142,9 @@
                     <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary btn-large" 
                         Font-Bold="True" Height="23px" OnClick="btnSave_Click" Text="Save" 
                         ValidationGroup="insert" Width="100px" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="t_back" runat="server" Font-Bold="True" OnClick="Button3_Click" 
+                        Style="margin-left: 8px" Text="Back" Width="100px" />
                     </td>
                 </tr>
                 <tr>
@@ -196,8 +199,6 @@
                     </td>
                     <td class="style2">
                         &nbsp;
-                        <asp:Button ID="t_back" runat="server" OnClick="Button3_Click" Text="Back" Width="100px"
-                            Font-Bold="True" Style="margin-left: 8px" />
                         <br />
                         <br />
                         <br />
