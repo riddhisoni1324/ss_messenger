@@ -308,10 +308,11 @@ public partial class trans : System.Web.UI.Page
                             //according dtid enter data in attach table
                             SqlConnection con12 = new SqlConnection(connstring);
                             con12.Open();
-                            insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath) VALUES(@dtid,@docfilename,@docfilepath)", con12);
+                            insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath,memberid) VALUES(@dtid,@docfilename,@docfilepath,@memberid)", con12);
                             insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
                             insert_cat.Parameters.Add("@docfilename", file_name);
                             insert_cat.Parameters.Add("@docfilepath", "no");
+                            insert_cat.Parameters.Add("@memberid",i);
 
                             if ((con12.State & ConnectionState.Open) > 0)
                             {
