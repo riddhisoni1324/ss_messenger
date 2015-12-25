@@ -11,9 +11,7 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 
-
-
-public partial class trans : System.Web.UI.Page
+public partial class Trans1 : System.Web.UI.Page
 {
     SqlCommand insert_cat; int id = 0;
     SqlDataAdapter dadapter;
@@ -27,7 +25,7 @@ public partial class trans : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string formatted = DateTime.Now.ToString("MMddyyyyHHmmssfff");
-        Response.Write(formatted);
+      //  Response.Write(formatted);
         if (!IsPostBack)
         {
             MultiView1.SetActiveView(View1);
@@ -104,6 +102,11 @@ public partial class trans : System.Web.UI.Page
         databind();
     }
 
+    protected void Edit_Command(object source, DataListCommandEventArgs e)
+    {
+        MultiView1.SetActiveView(View3);
+    }
+
 
 
 
@@ -143,7 +146,7 @@ public partial class trans : System.Web.UI.Page
             con1.Close();
 
 
-            
+
 
         }
 
@@ -153,7 +156,7 @@ public partial class trans : System.Web.UI.Page
 
     }
 
-        
+
 
 
 
@@ -187,7 +190,7 @@ public partial class trans : System.Web.UI.Page
         ListBox2.DataTextField = "membername";
         ListBox2.DataValueField = "code";
         ListBox2.DataBind();
-       // MultiView1.SetActiveView(View3);
+        // MultiView1.SetActiveView(View3);
     }
     protected void b_sel_mem_Click(object sender, EventArgs e)
     {
@@ -197,17 +200,17 @@ public partial class trans : System.Web.UI.Page
             //Response.Write("sadsad"+li1.Text);
             li1.Selected = true;
             ae_mem.Add(li1.Value);
-             Response.Write(li1.Value + "<br>");
+          //  Response.Write(li1.Value + "<br>");
             //l_mem.Text += li1.Text + ":";
             // l_mem.Text = li1.Value;
 
         }
 
-     
+
     }
     protected void Button4_Click(object sender, EventArgs e)
     {
-       
+
         MultiView1.SetActiveView(View2);
     }
 
@@ -218,7 +221,7 @@ public partial class trans : System.Web.UI.Page
             if (li1.Selected)
             {
                 ae_mem.Add(li1.Value);
-                Response.Write(li1.Value + "<br>");
+              //  Response.Write(li1.Value + "<br>");
             }
 
         }
@@ -244,7 +247,7 @@ public partial class trans : System.Web.UI.Page
 
         foreach (var i in ae_mem)
         {
-            Response.Write("in foor loop");
+          //  Response.Write("in foor loop");
 
 
             string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -261,7 +264,7 @@ public partial class trans : System.Web.UI.Page
                 while (rdr1.Read())
                 {
 
-                 
+
                     string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                     SqlConnection con1 = new SqlConnection(cs1);
                     con1.Open();
@@ -283,11 +286,11 @@ public partial class trans : System.Web.UI.Page
 
             string s1 = DropDownList2.SelectedItem.Text;
             var s = DropDownList2.SelectedItem.Value;
-           
+
             //---file upload start
             if (FileUpload2.HasFile)     // CHECK IF ANY FILE HAS BEEN SELECTED.
             {
-                
+
                 HttpFileCollection hfc = Request.Files;
                 if (hfc.Count <= 5)    // 5 FILES RESTRICTION.
                 {
@@ -301,7 +304,7 @@ public partial class trans : System.Web.UI.Page
                             // SAVE THE FILE IN A FOLDER.
                             file_name = Path.GetFileName(hpf.FileName);
                             hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
-                            file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_"+formatted+"_"+ hpf.FileName));
+                            file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
 
 
                             //according dtid enter data in attach table
@@ -311,7 +314,7 @@ public partial class trans : System.Web.UI.Page
                             insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
                             insert_cat.Parameters.Add("@docfilename", file_name);
                             insert_cat.Parameters.Add("@docfilepath", "no");
-                            insert_cat.Parameters.Add("@memberid",i);
+                            insert_cat.Parameters.Add("@memberid", i);
 
                             if ((con12.State & ConnectionState.Open) > 0)
                             {
@@ -320,10 +323,10 @@ public partial class trans : System.Web.UI.Page
                                 {
                                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('doc attch Succesfully.');", true);
                                 }
-                                
+
                             }
                             con12.Close();
-                            
+
                         }//--end of  checking file size
 
 
@@ -360,13 +363,14 @@ public partial class trans : System.Web.UI.Page
                 {
 
                     email = rdr45["emailid"].ToString();
-                    Response.Write(email + "<br>");
-                   
+                    //Response.Write(email + "<br>");
+
                     using (MailMessage mm = new MailMessage("adharvotingsystem@gmail.com", email))
                     {
                         mm.Subject = "Attch Mail";
                         mm.Body = "hello ";
-                        foreach(string f in file1){
+                        foreach (string f in file1)
+                        {
                             mm.Attachments.Add(new Attachment(Server.MapPath(f)));
 
                         }
@@ -389,5 +393,10 @@ public partial class trans : System.Web.UI.Page
 
         }//--iteration of perticular member done
 
+    }
+    protected void Button7_Click(object sender, EventArgs e)
+    {
+         
+        MultiView1.SetActiveView(View1);
     }
 }
