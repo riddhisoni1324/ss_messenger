@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
-<asp:MultiView ID="MultiView1" runat="server">
+    <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
             <asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />

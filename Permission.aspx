@@ -3,6 +3,32 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+
+
+
+
+    <asp:DropDownList ID="DropDownList1" runat="server" 
+        DataSourceID="SqlDataSource1" DataTextField="UserDesc" 
+        DataValueField="UserId" AutoPostBack="True" 
+        onselectedindexchanged="DropDownList1_SelectedIndexChanged">
+    </asp:DropDownList>
+
+
+
+
+
+
+
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+        SelectCommand="SELECT * FROM [UserMaster]"></asp:SqlDataSource>
+
+
+
+
+        <br /><br />
+
+
 <table>
 <tr>
 <td>Type</td>
@@ -92,7 +118,8 @@
 
 </table>
 
-    <asp:Button ID="Button1" runat="server" Text="Apply Changes" />
+    <asp:Button ID="Button1" runat="server" Text="Apply Changes" 
+        onclick="Button1_Click" />
 
 </asp:Content>
 
