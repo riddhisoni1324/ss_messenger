@@ -24,51 +24,56 @@ public partial class MemberMaster : System.Web.UI.Page
             MultiView1.SetActiveView(View1);
             this.ViewState["vs"] = 0;
             Button1.Focus();
+            bindlistbox();
         }
         pos = (int)this.ViewState["vs"];
         databind();
     }
-
-    //---display category according type is selected
-    protected void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
-    {
+    protected void bindlistbox() {
         ListBox2.Items.Clear();
         string message = "";
         foreach (ListItem item in ListBox1.Items)
         {
             if (item.Selected)
             {
-                message += item.Text + " " + item.Value + "\\n";
+                message += item.Text + " " + item.Value + "<br>";
+               // Response.Write(message);
                 ListItem li = new ListItem();
 
                 string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 con.Open();
-                cmd = new SqlCommand("select * from categorymaster inner join TypeMaster on CategoryMaster.TypeId=TypeMaster.TypeId where CategoryMaster.TypeId=@tid ", con);
+                cmd = new SqlCommand("select * from categorymaster  where TypeId=@tid ", con);
                 cmd.Parameters.Add("@tid", item.Value);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adp.Fill(dt);
                 cmd.Connection = con;
                 rdr = cmd.ExecuteReader();
-                ListBox2.DataSource = rdr;
-                ListBox2.DataTextField = "categorydesc";
-                ListBox2.DataValueField = "categoryid";
-                ListBox2.DataBind();
-                //if (rdr != null)
-                //{
-                //    while (rdr.Read())
-                //    {
-                //        li.Text = rdr.GetString(2);
-                //        li.Value = rdr[0].ToString();
-                //        ListBox2.Items.Add(li);
-                //    }
-                //}
+                //ListBox2.DataSource = rdr;
+                //ListBox2.DataTextField = "categorydesc";
+                //ListBox2.DataValueField = "categoryid";
+                //ListBox2.DataBind();
+                if (rdr != null)
+                {
+                    while (rdr.Read())
+                    {
+                        li.Text = rdr.GetString(2);
+                        li.Value = rdr[0].ToString();
+                        ListBox2.Items.Add(li);
+                    }
+                }
                 con.Close();
 
             }
         }
 
+    }
+    //---display category according type is selected
+    protected void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        bindlistbox();
+       
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -355,7 +360,7 @@ public partial class MemberMaster : System.Web.UI.Page
                 t_mem_loginpass.Text = rdr.GetString(12);
                 t_mem_login.Text = rdr.GetString(11);
                 DropDownList1.SelectedValue = rdr.GetString(16);
-                Response.Write(DropDownList1.SelectedValue);
+              //  Response.Write(DropDownList1.SelectedValue);
 
             }
         }
