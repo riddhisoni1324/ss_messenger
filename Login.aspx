@@ -10,7 +10,7 @@
                 <asp:Label ID="Label1" runat="server" Text="LoginID"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="t_login_id" runat="server"></asp:TextBox>
             </td>
            
         </tr>
@@ -19,7 +19,7 @@
                 <asp:Label ID="Label2" runat="server" Text="LoginPass"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="t_login_pass" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
         <tr>
         <td></td>
         <td>
-            <asp:Button ID="Button1" runat="server" Text="Login" />
+            <asp:Button ID="Button1" runat="server" Text="Login" onclick="Button1_Click" />
         </td>
         </tr>
     </table>
