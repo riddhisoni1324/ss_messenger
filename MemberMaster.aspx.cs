@@ -138,7 +138,7 @@ public partial class MemberMaster : System.Web.UI.Page
             string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             SqlConnection con1 = new SqlConnection(cs1);
             con1.Open();
-            insert_mem = new SqlCommand("INSERT INTO MemberMaster (MemberName,MemberDesc,code,Address1,Address2,PinCode,Contact1,Contact2,Contact3,EmailID,LoginID,LoginPass) VALUES(@MemberName,@MemberDesc,@code,@Address1,@Address2,@PinCode,@Contact1,@Contact2,@Contact3,@EmailID,@LoginID,@LoginPass)", con1);
+            insert_mem = new SqlCommand("INSERT INTO MemberMaster (MemberName,MemberDesc,code,Address1,Address2,PinCode,Contact1,Contact2,Contact3,EmailID,LoginID,LoginPass,UserType) VALUES(@MemberName,@MemberDesc,@code,@Address1,@Address2,@PinCode,@Contact1,@Contact2,@Contact3,@EmailID,@LoginID,@LoginPass,@UserType)", con1);
             insert_mem.Parameters.AddWithValue("@code", t_mem_code.Text);
             insert_mem.Parameters.Add("@MemberName", t_mem_name.Text);
             insert_mem.Parameters.Add("@MemberDesc", t_mem_desc.Text);
@@ -151,6 +151,7 @@ public partial class MemberMaster : System.Web.UI.Page
             insert_mem.Parameters.Add("@EmailID", t_mem_email.Text);
             insert_mem.Parameters.Add("@LoginID", t_mem_login.Text);
             insert_mem.Parameters.Add("@LoginPass", t_mem_loginpass.Text);
+            insert_mem.Parameters.Add("@UserType", DropDownList1.SelectedValue);
             if ((con1.State & ConnectionState.Open) > 0)
             {
                 int i = insert_mem.ExecuteNonQuery();
@@ -250,7 +251,7 @@ public partial class MemberMaster : System.Web.UI.Page
             string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             SqlConnection con7 = new SqlConnection(cs);
             con7.Open();
-            SqlCommand cmd12 = new SqlCommand("update MemberMaster set MemberName=@MemberName,memberdesc=@memberdesc,Address1=@Address1,Address2=@Address2,PinCode=@PinCode,Contact1=@Contact1,Contact2=@Contact2,Contact3=@Contact3,EmailID=@EmailID,LoginPass=@LoginPass,code=@code where LoginId=@LoginId", con7);
+            SqlCommand cmd12 = new SqlCommand("update MemberMaster set MemberName=@MemberName,memberdesc=@memberdesc,Address1=@Address1,Address2=@Address2,PinCode=@PinCode,Contact1=@Contact1,Contact2=@Contact2,Contact3=@Contact3,EmailID=@EmailID,LoginPass=@LoginPass,code=@code,UserType=@UserType where LoginId=@LoginId", con7);
 
             cmd12.Parameters.AddWithValue("@code", t_mem_code.Text);
             cmd12.Parameters.Add("@MemberName", t_mem_name.Text);
@@ -264,6 +265,7 @@ public partial class MemberMaster : System.Web.UI.Page
             cmd12.Parameters.Add("@EmailID", t_mem_email.Text);
             cmd12.Parameters.Add("@LoginID", t_mem_login.Text);
             cmd12.Parameters.Add("@LoginPass", t_mem_loginpass.Text);
+            cmd12.Parameters.Add("@UserType", DropDownList1.SelectedValue);
             if ((con7.State & ConnectionState.Open) > 0)
             {
                 int i = cmd12.ExecuteNonQuery();
@@ -313,6 +315,7 @@ public partial class MemberMaster : System.Web.UI.Page
         t_mem_code.Text = " ";
         ListBox1.ClearSelection();
         ListBox2.ClearSelection();
+        DropDownList1.ClearSelection();
 
     }
 
@@ -351,6 +354,8 @@ public partial class MemberMaster : System.Web.UI.Page
                 t_mem_login.Text = rdr.GetString(11);
                 t_mem_loginpass.Text = rdr.GetString(12);
                 t_mem_login.Text = rdr.GetString(11);
+                DropDownList1.SelectedValue = rdr.GetString(16);
+                Response.Write(DropDownList1.SelectedValue);
 
             }
         }

@@ -122,7 +122,7 @@
                        
                         </td>
                     
-                     <td class="style6" rowspan="4" colspan="2">
+                     <td class="style6" rowspan="4">
                         
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         
@@ -215,7 +215,7 @@
                     <td class="style7" >
                        
                         </td>
-                         <td class="style6" rowspan="4" colspan="2">
+                         <td class="style6" rowspan="4">
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -339,6 +339,20 @@
                     <td class="style7" >
                        
                         </td>
+                </tr>
+                <tr>
+                    <td class="table_wid">
+                        UserType</td>
+                    <td class="style1">
+                        <asp:DropDownList ID="DropDownList1" runat="server" 
+                            DataSourceID="SqlDataSource3" DataTextField="UserDesc" DataValueField="UserId">
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                            SelectCommand="SELECT * FROM [UserMaster]"></asp:SqlDataSource>
+                    </td>
+                    <td class="style7">
+                        &nbsp;</td>
                 </tr>
                 <tr>
                     <td class="table_wid">
