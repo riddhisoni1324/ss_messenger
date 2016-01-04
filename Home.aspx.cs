@@ -28,7 +28,7 @@ public partial class Home : System.Web.UI.Page
 
     public void databind()
     {
-        dadapter = new SqlDataAdapter("select * from DocAttach", connstring);
+        dadapter = new SqlDataAdapter("select * from DocAttach order by UpdatedOn desc", connstring);
         dset = new DataSet();
         adsource = new PagedDataSource();
         dadapter.Fill(dset);
