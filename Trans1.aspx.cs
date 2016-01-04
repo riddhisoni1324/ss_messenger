@@ -309,11 +309,11 @@ public partial class Trans1 : System.Web.UI.Page
 
                             // SAVE THE FILE IN A FOLDER.
                             file_name = Path.GetFileName(hpf.FileName);
-                            hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
-                            string fp = Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName);
-                            string fp1="Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName);
+                            hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_"+ formatted + "_" + hpf.FileName));
+                            string fp = Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + formatted + "_" + hpf.FileName);
+                            string fp1="Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + formatted + "_" + hpf.FileName);
                             //Response.Write("filepath : "+fp1);
-                            file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
+                            file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" +  formatted + "_" + hpf.FileName));
 
 
                             //according dtid enter data in attach table
