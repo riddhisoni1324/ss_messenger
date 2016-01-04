@@ -21,7 +21,7 @@
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
+                        <asp:MenuItem NavigateUrl="~/Home.aspx" Text="Home"/>
                         <asp:MenuItem NavigateUrl="~/TypeMaster.aspx" Text="TypeMaster"/>
                         <asp:MenuItem NavigateUrl="~/CategoryMaster.aspx" Text="Categorymaster"/>
                         <asp:MenuItem NavigateUrl="~/MemberMaster.aspx" Text="MemberMaster"/>

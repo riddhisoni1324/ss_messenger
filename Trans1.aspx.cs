@@ -304,6 +304,9 @@ public partial class Trans1 : System.Web.UI.Page
                             // SAVE THE FILE IN A FOLDER.
                             file_name = Path.GetFileName(hpf.FileName);
                             hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
+                            string fp = Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName);
+                            string fp1="Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName);
+                            //Response.Write("filepath : "+fp1);
                             file1.Add("~/Attachment/" + s1 + "/" + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
 
 
@@ -313,7 +316,7 @@ public partial class Trans1 : System.Web.UI.Page
                             insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath,memberid) VALUES(@dtid,@docfilename,@docfilepath,@memberid)", con12);
                             insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
                             insert_cat.Parameters.Add("@docfilename", file_name);
-                            insert_cat.Parameters.Add("@docfilepath", "no");
+                            insert_cat.Parameters.Add("@docfilepath", fp1);
                             insert_cat.Parameters.Add("@memberid", i);
 
                             if ((con12.State & ConnectionState.Open) > 0)
