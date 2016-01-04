@@ -4,7 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
-<asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
+<asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command" 
+        Width="720px">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="white" />
@@ -13,7 +14,7 @@
                 <ItemTemplate>
                     <table style="padding: 4px; font-size: medium; width: 100%; overflow: auto">
                         <tr>
-                            <td style="width: 70%">
+                            <td style="width: 100%">
                                 &nbsp;<%# Eval("DocFilename")%></td>
                             <td style="width: 10%">
                                 <asp:LinkButton ID="lnkEdit" runat="server" Text="Download" CommandName="Edit" CommandArgument='<%#Eval("DocFilepath") %>'></asp:LinkButton>

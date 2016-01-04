@@ -47,7 +47,7 @@
                             <td style="width: 400px">
                                 &nbsp;<%# Eval("docdetail")%></td>
                             <td style="width: 10%">
-                                <asp:LinkButton ID="lnkEdit" runat="server" Text="Upload" CommandName="Edit" CommandArgument='<%#Eval("dtid") %>'></asp:LinkButton>
+                                <asp:LinkButton ID="lnkEdit" runat="server" Text="Upload" CommandName="Edit" CommandArgument='<%#Eval("docdesc") %>'></asp:LinkButton>
                             </td>
                             <td style="width: 10%">
                                 &nbsp;<asp:LinkButton ID="lnkDelete" runat="server" Text="Delete" CommandName="Delete"
@@ -215,6 +215,8 @@
                         <br />
                         <br />
                         <asp:HiddenField ID="h_dtid" runat="server" />
+                        <asp:HiddenField ID="h_doctype" runat="server" />
+                        <asp:HiddenField ID="h_doc_id" runat="server" />
                         <br />
                     </td>
                 </tr>

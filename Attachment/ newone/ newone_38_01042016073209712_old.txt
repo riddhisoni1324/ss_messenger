@@ -1,0 +1,210 @@
+(function() {
+
+	var app = angular.module('starter.home');
+    app.controller('HomeController',['$scope','CategoryService', '$location','$cordovaContacts','$cordovaCapture','$rootScope','$cordovaCamera','$cordovaImagePicker' ,function($scope,CategoryService,$location,$cordovaContacts,$cordovaCapture,$rootScope,$cordovaCamera,$cordovaImagePicker) { 
+   	$scope.categories = [];
+   	$scope.sub_categories = [];
+   
+	CategoryService.getAll().$promise.then(function(response){
+		var ItemTypes = response.ItemType;
+	
+		$scope.categories = [];
+		for (var i = 0; i < ItemTypes.length; i++) {
+
+			$scope.categories.push(ItemTypes[i].ItemType.name);
+
+			for(var j=0;j<1;j++)
+			{
+				$scope.sub_categories.push(ItemTypes[i].ItemCategory[j].name);
+			}
+		};
+	}, function(err){	
+		console.log(err);
+	})
+
+
+	        $scope.nav_adpost = function(sub_cat_id) {
+		       $location.path('/ad-post');
+		     };
+
+		    $scope.iv1 = function() {
+
+				var options = {
+				//maximumImagesCount: 10,
+				/*quality: 80,
+				destinationType: Camera.DestinationType.FILE_URI,
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+				mediaType:Camera.MediaType.VIDEO
+				*/
+		        quality: 50,
+		        destinationType: Camera.DestinationType.FILE_URI,
+		        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+		        mediaType: Camera.MediaType.VIDEO,
+		        saveToPhotoAlbum: true
+			    };
+
+				/*$cordovaImagePicker.getPictures(options)
+				.then(function (results) {
+				for (var i = 0; i < results.length; i++) {
+				console.log('Image URI: ' + results[i]);
+				}
+				}, function(error) {
+				// error getting photos
+				});*/
+	$scope.uploading_photos = false;
+	var img_obj="";
+	$scope.adPostData = {};
+	$scope.adPostData.photos = [];
+      
+
+      $cordovaCamera.getPicture(options).then(function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var img_obj = {};
+				img_obj.imageURI = results[i];
+				$scope.adPostData.photos.push(img_obj);
+			}
+			if(results.length > 0){
+				console.log("Image Picker===");
+				console.log($scope.adPostData.photos);
+			}
+		    }, function(err) {
+		        alert("Failed because: " + err);
+		        console.log('Failed because: ' + err);
+		    });
+
+    };
+
+
+
+		     $scope.iv = function() {
+		       console.log('iv');
+		       var options = { limit: 3, duration: 15 };
+
+				    $cordovaCapture.captureVideo(options).then(function(videoData) {
+				      // Success! Video data is here
+
+				      console.log('sucs....');
+    
+				    }, function(err) {
+				      // An error occurred. Show a message to the user
+				      console.log('err....');
+    
+				    });
+				
+		     };
+
+
+
+ $scope.upload = function() {
+        var options = {
+            fileKey: "avatar",
+            fileName: "filename.mp4",
+            chunkedMode: false,
+            mimeType: "video/mp4"
+        };
+        $cordovaFileTransfer.upload("http://www.samplewebsite.com/upload", "file:/storage/....mp4", options).then(function(result) {
+            console.log("SUCCESS: " + JSON.stringify(result.response));
+        }, function(err) {
+            console.log("ERROR: " + JSON.stringify(err));
+        }, function (progress) {
+            // constant progress updates
+        });
+    }
+
+
+/*	$scope.addContact = function() {
+    $cordovaContacts.save($scope.contactForm).then(function(result) {
+      // Contact saved
+      console.log('sucs');
+    }, function(err) {
+      // Contact error
+      console.log('err');
+    });
+  };
+*/
+         $scope.getContacts = function() {
+  	     console.log('sucs');
+    
+          $scope.phoneContacts = [];
+          function onSuccess(contacts) {
+            for (var i = 0; i < contacts.length; i++) {
+              var contact = contacts[i];
+              $scope.phoneContacts.push(contact);
+            }
+              console.log('sucs....');
+    
+          };
+          function onError(contactError) {
+            alert(contactError);
+              console.log('err');
+    
+          };
+          var options = {};
+          options.multiple = true;
+          $cordovaContacts.find(options).then(onSuccess, onError);
+        };	
+
+    $scope.getContactList = function() {
+    $cordovaContacts.find({filter: ''}).then(function(result) {
+        $scope.contacts = result;
+    }, function(error) {
+        console.log("ERROR: " + error);
+    });
+    };	     
+
+
+$scope.createContact = function() {
+    $cordovaContacts.save({"displayName": "Steve Jobs"}).then(function(result) {
+        console.log(JSON.stringify(result));
+    }, function(error) {
+        console.log(error);
+    });
+}
+	
+
+    }])
+
+	app.controller('AppController', ['$scope', '$location', '$ionicActionSheet', '$ionicSideMenuDelegate','CategoryService', function($scope, $location, $ionicActionSheet, $ionicSideMenuDelegate, CategoryService) {
+	  
+	$scope.categories = [];
+   	$scope.sub_categories = [];
+   	
+			CategoryService.getAll().$promise.then(function(response){
+				var ItemTypes = response.ItemType;
+				console.log(ItemTypes);
+				for (var i = 0; i < ItemTypes.length; i++) {
+					var obj = {
+						category: ItemTypes[i].ItemType,
+						sub_cat: ItemTypes[i].ItemCategory,
+					}
+					$scope.categories.push(obj);
+				};
+		
+
+			}, function(err){	
+				console.log(err);
+			})
+
+ 		  $scope.toggleGroup = function(group) {
+		    if ($scope.isGroupShown(group)) {
+		      $scope.shownGroup = null;
+		    } else {
+		      $scope.shownGroup = group;
+		    }
+		  };
+		  $scope.isGroupShown = function(group) {
+		    return $scope.shownGroup === group;
+		  };
+		  	/*go to sub cat*/
+
+		     $scope.navigate = function(sub_cat_id) {
+		       $location.path('/ad-list/' + sub_cat_id);
+		     };
+
+
+  	
+	}]);
+   
+	
+})();
+

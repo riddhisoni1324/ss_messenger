@@ -17,6 +17,7 @@ public partial class Trans1 : System.Web.UI.Page
     SqlDataAdapter dadapter;
     DataSet dset; string t_id; int c_id = 0;
     PagedDataSource adsource; int dtid = 0;
+    string doctype;
     string connstring = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
     int pos; SqlCommand cmd; string email;
     ArrayList ae_mem = new ArrayList(); string file_name; ArrayList ae_atch = new ArrayList();
@@ -105,6 +106,7 @@ public partial class Trans1 : System.Web.UI.Page
     protected void Edit_Command(object source, DataListCommandEventArgs e)
     {
         MultiView1.SetActiveView(View3);
+        h_doctype.Value =e.CommandArgument.ToString();
     }
 
 
@@ -118,8 +120,11 @@ public partial class Trans1 : System.Web.UI.Page
             ClientScript.RegisterStartupScript(GetType(), "alert", "alert('insert.');", true);
 
             DropDownList2.Enabled = true;
-            var s = DropDownList2.SelectedItem.Value;
-            string s1 = DropDownList2.SelectedItem.Text;
+          //  var s = DropDownList2.SelectedItem.Value;
+            string s1 = h_doctype.Value;
+            docid();
+
+            //int doc_id = Convert.ToInt32(h_doc_id.Value);
             //Response.Write(t_cat_desc.Text+s1);
             string cs1 = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             SqlConnection con1 = new SqlConnection(cs1);
@@ -127,7 +132,8 @@ public partial class Trans1 : System.Web.UI.Page
             insert_cat = new SqlCommand("INSERT INTO doctrans (docid,title,docdetail) VALUES(@docid,@title,@docdetail)", con1);
             insert_cat.Parameters.Add("@title", t_doc_title.Text);
             insert_cat.Parameters.Add("@docdetail", t_doc_detail.Text);
-            insert_cat.Parameters.Add("@docid", s);
+            insert_cat.Parameters.Add("@docid", DropDownList2.SelectedItem.Value);
+            
 
             if ((con1.State & ConnectionState.Open) > 0)
             {
@@ -226,12 +232,12 @@ public partial class Trans1 : System.Web.UI.Page
 
         }
         //---fetch dtid 
-        var s13 = DropDownList2.SelectedItem.Value;
+        //var s13 = DropDownList2.SelectedItem.Value;
         SqlConnection con = new SqlConnection(connstring);
         con.Open();
         SqlCommand cmd; SqlDataReader rdr;
         cmd = new SqlCommand("select top 1 * from doctrans order by dtid desc", con);
-        cmd.Parameters.Add("@docid", s13);
+       // cmd.Parameters.Add("@docid", s13);
         rdr = cmd.ExecuteReader();
 
         if (rdr != null)
@@ -284,8 +290,8 @@ public partial class Trans1 : System.Web.UI.Page
             con56.Close();
 
 
-            string s1 = DropDownList2.SelectedItem.Text;
-            var s = DropDownList2.SelectedItem.Value;
+            string s1 = h_doctype.Value;
+           // var s = DropDownList2.SelectedItem.Value;
 
             //---file upload start
             if (FileUpload2.HasFile)     // CHECK IF ANY FILE HAS BEEN SELECTED.
@@ -315,7 +321,7 @@ public partial class Trans1 : System.Web.UI.Page
                             con12.Open();
                             insert_cat = new SqlCommand("INSERT INTO docattach (dtid,docfilename,docfilepath,memberid) VALUES(@dtid,@docfilename,@docfilepath,@memberid)", con12);
                             insert_cat.Parameters.Add("@dtid", Convert.ToInt32(h_dtid.Value));
-                            insert_cat.Parameters.Add("@docfilename", file_name);
+                            insert_cat.Parameters.Add("@docfilename", (file_name + "_" + formatted));
                             insert_cat.Parameters.Add("@docfilepath", fp1);
                             insert_cat.Parameters.Add("@memberid", i);
 
@@ -402,4 +408,22 @@ public partial class Trans1 : System.Web.UI.Page
          
         MultiView1.SetActiveView(View1);
     }
+    protected void docid() {
+        SqlConnection con = new SqlConnection(connstring);
+        con.Open();
+        SqlCommand cmd; SqlDataReader rdr;
+        cmd = new SqlCommand("select docid from docmaster where Docdesc=@docdesc", con);
+        cmd.Parameters.Add("@docdesc", h_doctype.Value);
+        rdr = cmd.ExecuteReader();
+
+        if (rdr != null)
+        {
+            while (rdr.Read())
+            {
+                h_doc_id.Value = rdr["docid"].ToString();
+
+            }
+        }
+    }
+
 }
