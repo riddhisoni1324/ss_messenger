@@ -19,6 +19,14 @@ public partial class Login : System.Web.UI.Page
         {
            
             menu.Items.Remove(menu.FindItem("Permission"));
+            menu.Items.Remove(menu.FindItem("TypeMaster"));
+            menu.Items.Remove(menu.FindItem("Categorymaster"));
+            menu.Items.Remove(menu.FindItem("MemberMaster"));
+            menu.Items.Remove(menu.FindItem("DocMaster"));
+            menu.Items.Remove(menu.FindItem("DocTrans"));
+            menu.Items.Remove(menu.FindItem("UserMaster"));
+            menu.Items.Remove(menu.FindItem("Login"));
+            menu.Items.Remove(menu.FindItem("Home"));
 
         }
         
@@ -54,7 +62,9 @@ public partial class Login : System.Web.UI.Page
         else {
 
             ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Information Matched.');", true);
-            
+            Session["user"] = t_login_id.Text;
+            Session["usertype"] = user_type;
+
             Response.Redirect("Home.aspx");
 
           

@@ -3,9 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head runat="server">
+<script type ="text/javascript">
+
+    window.onload = window.history.forward(0);  //calling function on window onload
+    
+</script>  
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+       
     </asp:ContentPlaceHolder>
 </head>
 <body>
@@ -30,11 +36,16 @@
                          <asp:MenuItem NavigateUrl="~/UserMaster.aspx" Text="UserMaster"/>
                          <asp:MenuItem NavigateUrl="~/Permission.aspx" Text="Permission"/>
                          <asp:MenuItem NavigateUrl="~/Login.aspx" Text="Login"/>
+                          <asp:MenuItem NavigateUrl="~/About.aspx" Text="About Us"/>
                     </Items>
                 </asp:Menu>
             </div>
         </div>
         <div class="main">
+            <div style="position:relative;margin-right:auto;margin-left:80%">
+            <asp:Label ID="l_master" runat="server" Text=" "></asp:Label>
+            <asp:Button ID="b_master" runat="server" Text=" " onclick="b_master_Click" />
+            </div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
         </div>
         <div class="clear">

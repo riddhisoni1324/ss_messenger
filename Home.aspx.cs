@@ -24,6 +24,54 @@ public partial class Home : System.Web.UI.Page
         }
         pos = (int)this.ViewState["vs"];
         databind();
+        if (Session["user"] != null)
+        {
+            Label lb = (Label)Page.Master.FindControl("l_master");
+            lb.Text="Welcome , "+Session["user"].ToString();
+            Button lb1 = (Button)Page.Master.FindControl("b_master");
+            lb1.Visible = true;
+            lb1.Text = "Logout";
+            
+        }
+        else {
+            Response.Redirect("Login.aspx");
+        }
+
+        if (Convert.ToInt32(Session["usertype"]) == 1)
+        {
+            var menu = Page.Master.FindControl("NavigationMenu") as Menu;
+            if (menu != null)
+            {
+
+                menu.Items.Remove(menu.FindItem("Login"));
+                menu.Items.Remove(menu.FindItem("Home"));
+             
+            }
+
+        }
+        else {
+            var menu = Page.Master.FindControl("NavigationMenu") as Menu;
+            if (menu != null)
+            {
+
+                menu.Items.Remove(menu.FindItem("Permission"));
+                menu.Items.Remove(menu.FindItem("TypeMaster"));
+                menu.Items.Remove(menu.FindItem("Categorymaster"));
+                menu.Items.Remove(menu.FindItem("MemberMaster"));
+                menu.Items.Remove(menu.FindItem("DocMaster"));
+                menu.Items.Remove(menu.FindItem("DocTrans"));
+                menu.Items.Remove(menu.FindItem("UserMaster"));
+                menu.Items.Remove(menu.FindItem("Login"));
+                menu.Items.Remove(menu.FindItem("Home"));
+
+            }
+        
+        }
+    }
+
+    protected void b_master_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Login.aspx");
     }
 
     public void databind()
