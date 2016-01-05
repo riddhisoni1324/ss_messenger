@@ -14,6 +14,12 @@
     <br />
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
+        <table style=" font-size: medium; width: 100%; overflow: auto">
+        <tr>
+        <td style="width: 5%">  Id</td>
+        <td style="width: 400px; margin-left:150px;" align="left"> <p> Type Description</p> </td>
+        </tr>
+        </table>
             <asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -22,6 +28,7 @@
                 <SelectedItemStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                 <ItemTemplate>
                     <table style="padding: 4px; font-size: medium; width: 100%; overflow: auto">
+
                         <tr>
                             <td style="width: 10%">
                                 &nbsp;<%# Eval("TypeID") %></td>
@@ -69,6 +76,7 @@
         </asp:View>
         <asp:View ID="View2" runat="server">
             <table>
+            
                 <tr>
                     <td>
                         <asp:Label ID="l_type_id" runat="server" Text="Type Id"></asp:Label>
@@ -100,6 +108,7 @@
                             Font-Bold="True" CssClass="radius"/>
                     </td>
                 </tr>
+               
             </table>
         </asp:View>
     </asp:MultiView>

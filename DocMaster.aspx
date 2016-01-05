@@ -2,29 +2,29 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <style type="text/css">
-        .style1
-        {
-            width: 16%;
-        }
-        .style2
-        {
-            height: 65px;
-            width: 2%;
-        }
-        .style3
-        {
-            width: 2%;
-        }
-        .style4
-        {
-            width: 2%;
-            height: 26px;
-        }
-        .style5
-        {
-            height: 26px;
-        }
-    </style>
+    .style1
+    {
+        width: 16%;
+    }
+    .style2
+    {
+        height: 65px;
+        width: 2%;
+    }
+    .style3
+    {
+        width: 2%;
+    }
+    .style4
+    {
+        width: 2%;
+        height: 26px;
+    }
+    .style5
+    {
+        height: 26px;
+    }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
@@ -32,6 +32,15 @@
     <br />
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
+           <table style=" font-size: medium; width: 100%; overflow: auto">
+        <tr>
+        <td style="width: 5%">  Id</td>
+        <td style="width: 400px">  Description </td>
+        
+        </tr>
+      
+        </table>
+        <br />
             <asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

@@ -28,6 +28,15 @@
     &nbsp;
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
+          <table style=" font-size: medium; width: 100%; overflow: auto">
+        <tr>
+        <td style="width: 150px">  Id</td>
+        <td style="width: 200px" align="left">  Type Description </td>
+        <td style="width: 500px" align="left"> Category Description</td>
+        </tr>
+        <br />
+        </table>
+        <br />
             <asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

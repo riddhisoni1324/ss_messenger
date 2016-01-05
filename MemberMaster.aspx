@@ -47,7 +47,16 @@
     </script>
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
-
+          <table style=" font-size: medium; width: 100%; overflow: auto">
+        <tr>
+        <td style="width: 10%">  Name</td>
+        <td style="width: 10%">   Description </td>
+        <td style="width: 400px"> Contact</td>
+        <td style="width: 400px">Email ID</td>
+        </tr>
+      
+        </table>
+        <br />
         <asp:DataList ID="DataList2" runat="server" OnEditCommand="Edit_Command">
                 <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
