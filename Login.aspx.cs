@@ -14,6 +14,7 @@ public partial class Login : System.Web.UI.Page
     SqlDataAdapter dadapter; DataSet dset; PagedDataSource adsource;
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         var menu = Page.Master.FindControl("NavigationMenu") as Menu;
         if (menu != null)
         {
