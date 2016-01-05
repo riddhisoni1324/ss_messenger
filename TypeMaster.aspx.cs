@@ -17,6 +17,23 @@ public partial class TypeMaster : System.Web.UI.Page
     int pos; SqlDataReader dr1; ArrayList arrName = new ArrayList();
     protected void Page_Load(object sender, EventArgs e)
     {
+        var menu = Page.Master.FindControl("NavigationMenu") as Menu;
+        if (menu != null)
+        { menu.Items.Remove(menu.FindItem("Login")); }
+
+        if (Session["user"] != null)
+        {
+            Label lb = (Label)Page.Master.FindControl("l_master");
+            lb.Text = "Welcome , " + Session["user"].ToString();
+            Button lb1 = (Button)Page.Master.FindControl("b_master");
+            lb1.Visible = true;
+            lb1.Text = "Logout";
+
+        }
+        else
+        {
+            Response.Redirect("Login.aspx");
+        }
 
         if (!IsPostBack)
         {

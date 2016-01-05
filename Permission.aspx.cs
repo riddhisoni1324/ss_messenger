@@ -15,6 +15,23 @@ public partial class Permission : System.Web.UI.Page
     int cat_add, cat_edit, cat_delete, cat_view;
     protected void Page_Load(object sender, EventArgs e)
     {
+        var menu = Page.Master.FindControl("NavigationMenu") as Menu;
+        if (menu != null)
+        { menu.Items.Remove(menu.FindItem("Login")); }
+
+        if (Session["user"] != null)
+        {
+            Label lb = (Label)Page.Master.FindControl("l_master");
+            lb.Text = "Welcome , " + Session["user"].ToString();
+            Button lb1 = (Button)Page.Master.FindControl("b_master");
+            lb1.Visible = true;
+            lb1.Text = "Logout";
+
+        }
+        else
+        {
+            Response.Redirect("Login.aspx");
+        }
 
     }
     protected void Button1_Click(object sender, EventArgs e)

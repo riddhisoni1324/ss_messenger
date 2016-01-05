@@ -26,7 +26,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <%--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -306,11 +306,11 @@
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="t_mem_email"
                             ErrorMessage="Enter Valid Email Id" ForeColor="Red" 
                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
-                            ValidationGroup="f"></asp:RegularExpressionValidator>
+                            ValidationGroup="f" Display="Dynamic"></asp:RegularExpressionValidator>
                         <br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                             ControlToValidate="t_mem_email" ErrorMessage="this field is required" 
-                            ForeColor="#FF3300" ValidationGroup="f"></asp:RequiredFieldValidator>
+                            ForeColor="#FF3300" ValidationGroup="f" Display="Dynamic"></asp:RequiredFieldValidator>
                         <br />
                     </td>
                 </tr>
@@ -338,7 +338,27 @@
                     </td>
                     <td class="style7" >
                        
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+                            ControlToValidate="t_mem_loginpass" ErrorMessage="this field is required" 
+                            ForeColor="#FF3300" ValidationGroup="f"></asp:RequiredFieldValidator>
+                       
                         </td>
+                </tr>
+                <tr>
+                    <td class="table_wid">
+                        Conform LoginPass</td>
+                    <td class="style1">
+                        <asp:TextBox ID="t_mem_c_loginpass" runat="server" CssClass="radius" TextMode="Password"></asp:TextBox>
+                    </td>
+                    <td class="style7">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
+                            ControlToValidate="t_mem_c_loginpass" Display="Dynamic" 
+                            ErrorMessage="this field is required" ForeColor="#FF3300" ValidationGroup="f"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" 
+                            ControlToCompare="t_mem_loginpass" ControlToValidate="t_mem_c_loginpass" 
+                            Display="Dynamic" ErrorMessage="Password Must Match" ForeColor="#FF3300" 
+                            ValidationGroup="f"></asp:CompareValidator>
+                    </td>
                 </tr>
                 <tr>
                     <td class="table_wid">

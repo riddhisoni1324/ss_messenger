@@ -69,10 +69,7 @@ public partial class Home : System.Web.UI.Page
         }
     }
 
-    protected void b_master_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Login.aspx");
-    }
+  
 
     public void databind()
     {
@@ -121,9 +118,6 @@ public partial class Home : System.Web.UI.Page
     }
     protected void Edit_Command(object source, DataListCommandEventArgs e)
     {
-        //string filePath = (sender as LinkButton).CommandArgument;
-        ///file_name = Path.GetFileName(hpf.FileName);
-        //hpf.SaveAs(Server.MapPath("~/Attachment/" + s1 + "/") + Path.GetFileName(s1 + "_" + h_dtid.Value + "_" + formatted + "_" + hpf.FileName));
         string filepath = e.CommandArgument.ToString();
         Response.Write(filepath);
         string fp = Server.MapPath("~/"+filepath);

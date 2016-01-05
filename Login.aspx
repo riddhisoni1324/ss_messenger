@@ -19,7 +19,7 @@
                 <asp:Label ID="Label2" runat="server" Text="LoginPass"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="t_login_pass" runat="server"></asp:TextBox>
+                <asp:TextBox ID="t_login_pass" runat="server" TextMode="Password"></asp:TextBox>
             </td>
         </tr>
         <tr>
