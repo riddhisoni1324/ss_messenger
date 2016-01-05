@@ -23,7 +23,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
-   <asp:SqlDataSource ID="DocTrans1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+    <asp:SqlDataSource ID="DocTrans1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
         SelectCommand="SELECT * FROM [DocTrans]"></asp:SqlDataSource>
     <br />
     &nbsp;
@@ -139,12 +139,12 @@
                 <tr>
                 <td class="style5"></td>
                 <td>
-                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary btn-large" 
+                    <asp:Button ID="Button1" runat="server" CssClass="radius" 
                         Font-Bold="True" Height="23px" OnClick="btnSave_Click" Text="Save" 
                         ValidationGroup="insert" Width="100px" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="t_back" runat="server" Font-Bold="True" OnClick="Button3_Click" 
-                        Style="margin-left: 8px" Text="Back" Width="100px" />
+                        Style="margin-left: 8px" Text="Back" Width="100px" CssClass="radius" />
                     </td>
                 </tr>
                 
@@ -188,15 +188,16 @@
                     <br />
                     <br />
                     <asp:Button ID="b_sel_mem0" runat="server" onclick="b_sel_mem_Click" 
-                        Text="select all member" />
+                        Text="select all member" CssClass="radius" />
                     <br />
                     <br />
                     <asp:Button ID="Button6" runat="server" onclick="Button5_Click" 
-                        Text="save and mail" />
+                        Text="save and mail" CssClass="radius" />
                     <br />
                     <br />
                     <br />
-                    <asp:Button ID="Button7" runat="server" onclick="Button7_Click" Text="Back" />
+                    <asp:Button ID="Button7" runat="server" onclick="Button7_Click" Text="Back" 
+                        CssClass="radius" />
                     <br />
                     <br />
                     <br />

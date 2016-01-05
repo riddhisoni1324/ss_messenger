@@ -44,7 +44,7 @@
         <div class="main">
             <div style="position:relative;margin-right:auto;margin-left:80%">
             <asp:Label ID="l_master" runat="server" Text=" "></asp:Label>
-            <asp:Button ID="b_master" runat="server" Text=" " onclick="b_master_Click" />
+            <asp:Button ID="b_master" runat="server" Text=" " onclick="b_master_Click" CssClass="radius" />
             </div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
         </div>

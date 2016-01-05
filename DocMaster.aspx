@@ -1,6 +1,30 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="DocMaster.aspx.cs" Inherits="DocMaster" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <style type="text/css">
+        .style1
+        {
+            width: 16%;
+        }
+        .style2
+        {
+            height: 65px;
+            width: 2%;
+        }
+        .style3
+        {
+            width: 2%;
+        }
+        .style4
+        {
+            width: 2%;
+            height: 26px;
+        }
+        .style5
+        {
+            height: 26px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
@@ -64,35 +88,35 @@
         <asp:View ID="View2" runat="server">
             <table>
                 <tr>
-                    <td>
+                    <td class="style4">
                         <asp:Label ID="l_type_id" runat="server" Text="Doc Id"></asp:Label>
                     </td>
-                    <td>
+                    <td class="style5">
                         &nbsp;&nbsp;<asp:TextBox ID="t_doc_id" name="txtFacultyCode" runat="server" BorderStyle="Solid"
-                            BorderWidth="1"></asp:TextBox>
+                            BorderWidth="1" CssClass="radius"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="style3">
                         <asp:Label ID="l_type_desc" runat="server" Text="Doc Desc"></asp:Label>
                     </td>
                     <td>
                         &nbsp;&nbsp;<asp:TextBox ID="t_doc_desc" name="txtFacultyName" runat="server"  
-                            CssClass="input_dim"></asp:TextBox>
+                            CssClass="radius"></asp:TextBox>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*This Field is required"
                             ControlToValidate="t_doc_desc" ForeColor="Red" ValidationGroup="insert"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td style="height: 65px; width: 15%">
+                    <td class="style2">
                     </td>
                     <td class="style1">
                         &nbsp;&nbsp;&nbsp;<asp:Button ID="Button1" runat="server" Text="Save" Width="100px"
-                            CssClass="btn btn-primary btn-large" Font-Bold="True" OnClick="btnSave_Click"
+                            CssClass="radius" Font-Bold="True" OnClick="btnSave_Click"
                             ValidationGroup="insert" />&nbsp;
                         <asp:Button ID="t_back" runat="server" OnClick="Button3_Click" Text="Back" Width="100px"
-                            Font-Bold="True" />
+                            Font-Bold="True" CssClass="radius" />
                     </td>
                 </tr>
             </table>
