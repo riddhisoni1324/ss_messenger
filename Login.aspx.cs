@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.IO;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -65,7 +66,13 @@ public partial class Login : System.Web.UI.Page
             ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Information Matched.');", true);
             Session["user"] = t_login_id.Text;
             Session["usertype"] = user_type;
+            string log = System.Configuration.ConfigurationManager.AppSettings["FilePath"].ToString();
+            using (StreamWriter outputFile = new StreamWriter(log, true))
+            {
 
+                outputFile.WriteLine(System.DateTime.Now.ToString() + "User: " + t_login_id.Text +" Login Sucess");
+
+            }
             Response.Redirect("Home.aspx");
 
           

@@ -13,6 +13,11 @@ public partial class Permission : System.Web.UI.Page
 {
     int type_add, type_edit, type_delete, type_view;
     int cat_add, cat_edit, cat_delete, cat_view;
+    int mem_add, mem_edit, mem_delete, mem_view;
+    int user_add, user_edit, user_delete, user_view;
+    int doc_add, doc_edit, doc_delete, doc_view;
+    int doctrans_add, doctrans_edit, doctrans_delete, doctrans_view;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         var menu = Page.Master.FindControl("NavigationMenu") as Menu;
@@ -55,21 +60,122 @@ public partial class Permission : System.Web.UI.Page
         }
 
 
-       
-       
-       
+        if (c_cat_add.Checked)
+        {
+            cat_add = 1;
+        }
+
+        if (c_cat_edit.Checked)
+        {
+            cat_edit = 1;
+        }
+        if (c_type_delete.Checked)
+        {
+            cat_delete = 1;
+        }
+        if (c_type_view.Checked)
+        {
+            cat_view = 1;
+        }
+
+
+        if (c_mem_add.Checked)
+        {
+            mem_add = 1;
+        }
+
+        if (c_mem_edit.Checked)
+        {
+            mem_edit = 1;
+        }
+        if (c_mem_delete.Checked)
+        {
+            mem_delete = 1;
+        }
+        if (c_mem_view.Checked)
+        {
+            mem_view = 1;
+        }
+
+        if (c_user_add.Checked)
+        {
+            user_add = 1;
+        }
+
+        if (c_user_edit.Checked)
+        {
+            user_edit = 1;
+        }
+        if (c_user_delete.Checked)
+        {
+            user_delete = 1;
+        }
+        if (c_user_view.Checked)
+        {
+            user_view = 1;
+        }
+
+        if (c_doc_add.Checked)
+        {
+            doc_add = 1;
+        }
+
+        if (c_doc_edit.Checked)
+        {
+            doc_edit = 1;
+        }
+        if (c_doc_delete.Checked)
+        {
+            doc_delete = 1;
+        }
+        if (c_doc_view.Checked)
+        {
+            doc_view = 1;
+        }
+
+
+
+        if (c_doctrans_add.Checked)
+        {
+            doctrans_add = 1;
+        }
+
+        if (c_doctrans_edit.Checked)
+        {
+            doctrans_edit = 1;
+        }
+        if (c_doctrans_delete.Checked)
+        {
+            doctrans_delete = 1;
+        }
+        if (c_doctrans_view.Checked)
+        {
+            doctrans_view = 1;
+        }
+        string user_type = DropDownList1.SelectedValue;
+        insert(user_type, "TypeMaster",type_add,type_delete,type_edit,type_view);
+        insert(user_type, "Category",cat_add,cat_delete,cat_edit,cat_view);
+        insert(user_type, "UserMaster", user_add, user_delete, user_edit, user_view);
+        insert(user_type, "Document",doc_add,doc_delete,doc_edit,doc_view);
+        insert(user_type, "DocumnetTrans",doctrans_add,doctrans_delete,doctrans_edit,doctrans_view);
+        insert(user_type, "Member",mem_add,mem_delete,mem_edit,mem_view);
+    }
+
+    private void insert(string id, string formname,int a,int d,int e,int v)
+    {
         //Response.Write(t_add);
         string cs = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection con = new SqlConnection(cs);
         con.Open();
 
-        SqlCommand cmd = new SqlCommand("update Permission set f_add=@f_add,f_edit=@f_edit,f_delete=@f_delete,f_view=@f_view where UserId=@UserId", con);
-        cmd.Parameters.Add("@UserId", 1);
-        cmd.Parameters.Add("@f_add", type_add);
-        cmd.Parameters.Add("@f_edit", type_edit);
-        cmd.Parameters.Add("@f_delete", type_delete);
-        cmd.Parameters.Add("@f_view", type_view);
-       
+
+        SqlCommand cmd = new SqlCommand("update Permission set f_add=@f_add,f_edit=@f_edit,f_delete=@f_delete,f_view=@f_view where UserId=@UserId and formname=@formname", con);
+        cmd.Parameters.Add("@UserId", id);
+        cmd.Parameters.Add("@f_add", a);
+        cmd.Parameters.Add("@f_edit", e);
+        cmd.Parameters.Add("@f_delete", d);
+        cmd.Parameters.Add("@f_view", v);
+        cmd.Parameters.Add("@formname", formname);
 
         if ((con.State & ConnectionState.Open) > 0)
         {

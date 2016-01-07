@@ -73,7 +73,9 @@ public partial class Home : System.Web.UI.Page
 
     public void databind()
     {
-        dadapter = new SqlDataAdapter("select * from DocAttach order by UpdatedOn desc", connstring);
+        //--select  distinct(docfilename)  from DocAttach
+        //--select * from DocAttach order by UpdatedOn desc
+        dadapter = new SqlDataAdapter("SELECT DISTINCT docfilename, MAX(updatedon),DocFilepath FROM DocAttach GROUP BY docfilename,DocFilepath ORDER BY MAX(updatedon) DESC, docfilename", connstring);
         dset = new DataSet();
         adsource = new PagedDataSource();
         dadapter.Fill(dset);

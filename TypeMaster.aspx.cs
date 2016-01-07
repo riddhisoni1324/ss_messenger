@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
+using System.IO;
 
 
 public partial class TypeMaster : System.Web.UI.Page
@@ -177,6 +178,13 @@ public partial class TypeMaster : System.Web.UI.Page
                     {
                        // Response.Write(i);
                         ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Type Added Succesfully.');", true);
+                        string log = System.Configuration.ConfigurationManager.AppSettings["FilePath"].ToString();
+                        using (StreamWriter outputFile = new StreamWriter(log, true))
+                        {
+
+                            outputFile.WriteLine(System.DateTime.Now.ToString() + "Type Added ");
+
+                        }
                     }
                     else
                     {
@@ -211,6 +219,13 @@ public partial class TypeMaster : System.Web.UI.Page
                     //Response.Write(i);
                     //Response.Write("row updated");
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Type Updated Succesfully.');", true);
+                    string log = System.Configuration.ConfigurationManager.AppSettings["FilePath"].ToString();
+                    using (StreamWriter outputFile = new StreamWriter(log, true))
+                    {
+
+                        outputFile.WriteLine(System.DateTime.Now.ToString() + "Type Updated ");
+
+                    }
                     con.Close();
                 }
                 else

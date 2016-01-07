@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 public partial class Categorymaster : System.Web.UI.Page
 {
@@ -164,6 +165,13 @@ public partial class Categorymaster : System.Web.UI.Page
                 {
                     //Response.Write(i);
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Category Added Succesfully.');", true);
+                    string log = System.Configuration.ConfigurationManager.AppSettings["FilePath"].ToString();
+                    using (StreamWriter outputFile = new StreamWriter(log, true))
+                    {
+
+                        outputFile.WriteLine(System.DateTime.Now.ToString() + "Category Added ");
+
+                    }
                 }
                 else
                 {
@@ -200,6 +208,13 @@ public partial class Categorymaster : System.Web.UI.Page
                     // Response.Write(i);
                     //  Response.Write("row inserted");
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Category Updated Succesfully.');", true);
+                    string log = System.Configuration.ConfigurationManager.AppSettings["FilePath"].ToString();
+                    using (StreamWriter outputFile = new StreamWriter(log, true))
+                    {
+
+                        outputFile.WriteLine(System.DateTime.Now.ToString() + "Type Updated ");
+
+                    }
                     con.Close();
                 }
                 else
